@@ -1,0 +1,28 @@
+{
+  "name": "http-test-server",
+  "version": "0.0.0",
+  "description": "Create a simple http server for tests",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "babel-tape-runner test.js",
+    "build": "rm -rf dist && mkdir -p dist && babel lib --out-dir dist",
+    "watch": "rm -rf dist && mkdir -p dist && babel -w lib --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kesla/test-http-server.git"
+  },
+  "author": "David Björklund <david.bjorklund@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kesla/test-http-server/issues"
+  },
+  "homepage": "https://github.com/kesla/test-http-server#readme",
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.10.4",
+    "babel-tape-runner": "^2.0.1",
+    "tapava": "^2.2.0"
+  }
+}
