@@ -12,7 +12,7 @@ test('simple GET', t =>
     res.end('beep boop');
   })
     .then(({shutdown, baseUrl}) =>
-      got(`${baseUrl}/foo`)
+      got(`${baseUrl}foo`)
       .then(({body}) => {
         t.is(body, 'beep boop');
 
@@ -30,7 +30,7 @@ test('simple POST', t =>
     res.end('beep boop');
   })
     .then(({shutdown, baseUrl}) =>
-      got(`${baseUrl}/foo`, {
+      got(`${baseUrl}foo`, {
         body: 'heja',
         method: 'post'
       })
@@ -50,7 +50,7 @@ test('keep alive request', t => {
     res.end('beep boop');
   })
     .then(({shutdown, baseUrl}) =>
-      got(`${baseUrl}/foo`, {agent: new Agent({
+      got(`${baseUrl}foo`, {agent: new Agent({
         keepAlive: true
       })})
       .then(({body}) => {
