@@ -1,6 +1,6 @@
 {
   "name": "http-test-server",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Create a simple http server for tests",
   "main": "dist/index.js",
   "scripts": {
