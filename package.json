@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kesla/test-http-server.git"
+    "url": "git+https://github.com/kesla/http-test-server.git"
   },
   "author": "David Björklund <david.bjorklund@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kesla/test-http-server/issues"
+    "url": "https://github.com/kesla/http-test-server/issues"
   },
-  "homepage": "https://github.com/kesla/test-http-server#readme",
+  "homepage": "https://github.com/kesla/http-test-server#readme",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
