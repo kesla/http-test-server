@@ -15,48 +15,48 @@ npm install http-test-server --save
 ```js
 /* eslint-disable import/no-extraneous-dependencies */
 
-import test from 'tapava';
-import got from 'got';
+import test from "tape";
+import got from "got";
+import httpTestServer from "http-test-server";
 
-import httpTestServer from 'http-test-server';
+test("simple GET", async (t) => {
+  t.plan(3);
 
-test('simple GET', t =>
-  httpTestServer((req, res) => {
-    t.is(req.url, '/foo');
-    t.is(req.method, 'GET');
-    res.end('beep boop');
-  })
-    .then(({shutdown, baseUrl}) =>
-      got(`${baseUrl}/foo`)
-      .then(({body}) => {
-        t.is(body, 'beep boop');
+  const server = await httpTestServer((req, res) => {
+    t.equal(req.url, "/foo");
+    t.equal(req.method, "GET");
+    res.end("beep boop");
+  });
 
-        return shutdown();
-      })
-    )
-);
+  const { body } = await got(`${server.baseUrl}/foo`);
+  t.equal(body, "beep boop");
 
-test('simple POST', t =>
-  httpTestServer((req, res) => {
-    t.is(req.url, '/foo');
-    t.is(req.method, 'POST');
-    t.is(req.body.toString(), 'heja');
+  await server.shutdown();
+  t.end();
+});
+
+test("simple POST", async (t) => {
+  t.plan(5);
+
+  const server = await httpTestServer((req, res) => {
+    t.equal(req.url, "/foo");
+    t.equal(req.method, "POST");
+    t.equal(req.body.toString(), "heja");
     res.statusCode = 201;
-    res.end('beep boop');
-  })
-    .then(({shutdown, baseUrl}) =>
-      got(`${baseUrl}/foo`, {
-        body: 'heja',
-        method: 'post'
-      })
-      .then(({body, statusCode}) => {
-        t.is(body, 'beep boop');
-        t.is(statusCode, 201);
+    res.end("beep boop");
+  });
 
-        return shutdown();
-      })
-    )
-);
+  const { body, statusCode } = await got(`${server.baseUrl}/foo`, {
+    body: "heja",
+    method: "post",
+  });
+
+  t.equal(body, "beep boop");
+  t.equal(statusCode, 201);
+
+  await server.shutdown();
+  t.end();
+});
 
 ```
 
@@ -74,14 +74,14 @@ npm test
 
 ## Dev Dependencies
 
-- [babel-cli](https://github.com/babel/babel/tree/master/packages): Babel command line.
-- [babel-core](https://github.com/babel/babel/tree/master/packages): Babel compiler core.
-- [babel-preset-es2015-node4](https://github.com/jbach/babel-preset-es2015-node4): Babel preset to make node@4 ES2015 compatible.
-- [babel-tape-runner](https://github.com/wavded/babel-tape-runner): Babel + Tape for running your ES Next tests
-- [got](): Simplified HTTP requests
+- [@types/node](https://github.com/DefinitelyTyped/DefinitelyTyped): TypeScript definitions for node
+- [@types/stream-to-promise](https://github.com/DefinitelyTyped/DefinitelyTyped): TypeScript definitions for stream-to-promise
+- [@types/tape](https://github.com/DefinitelyTyped/DefinitelyTyped): TypeScript definitions for tape
+- [got](): Human-friendly and powerful HTTP request library for Node.js
 - [package-json-to-readme](https://github.com/zeke/package-json-to-readme): Generate a README.md from package.json contents
-- [tapava](https://github.com/kesla/tapava): the syntax of ava, run through tape
-- [xo](https://github.com/sindresorhus/xo): JavaScript happiness style linter ❤️
+- [tape](https://github.com/tape-testing/tape): tap-producing test harness for node and browsers
+- [ts-node](https://github.com/TypeStrong/ts-node): TypeScript execution environment and REPL for node.js, with source map support
+- [typescript](https://github.com/microsoft/TypeScript): TypeScript is a language for application scale JavaScript development
 
 
 ## License
